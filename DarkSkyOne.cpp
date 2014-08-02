@@ -76,6 +76,8 @@ void setup()
 	logutils = new LogUtils;
 	logutils->setLogLevel(logutils->trace3);
 
+	logutils->logTrace(logutils->trace3, "Main::setup()");
+
 	// Add your initialization code here
 	mySCoop.start();
 }
