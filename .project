@@ -52,6 +52,11 @@
 			<locationURI>ArduinoPlatformPath/cores/arduino</locationURI>
 		</link>
 		<link>
+			<name>arduino/libsam</name>
+			<type>2</type>
+			<location>C:/Applications/arduino-1.5.2/hardware/arduino/sam/system/libsam</location>
+		</link>
+		<link>
 			<name>arduino/variant</name>
 			<type>2</type>
 			<locationURI>ArduinoPinPath/arduino_due_x</locationURI>

@@ -50,13 +50,14 @@ LogUtils::LogLevel LogUtils::getLogLevel(){
 
 void LogUtils::processLogs()
 {
-    // pop all the string messages from the queue.
+	// pop all the string messages from the queue.
 	while (!queue.isEmpty ()) {
-		char strBuff[255];
-		sprintf(strBuff, "%02d.%02d.%4d\t%02d:%02d:%02d", rtc_clock.get_days(), rtc_clock.get_months(), rtc_clock.get_years(), rtc_clock.get_hours(), rtc_clock.get_minutes(), rtc_clock.get_seconds());
 
-		Serial.print(String(strBuff) + "\t" + queue.pop () + "\n");
-    }
+		String StrTime = leadingZero(rtc_clock.get_days()) +"."+ leadingZero(rtc_clock.get_months()) +"."+ leadingZero(rtc_clock.get_years());
+		StrTime += "\t" + leadingZero(rtc_clock.get_hours()) +":"+ leadingZero(rtc_clock.get_minutes()) +":"+ leadingZero(rtc_clock.get_seconds());
+
+		Serial.print(StrTime + "\t" + queue.pop () + "\n");
+	}
 }
 
 void LogUtils::logTrace(LogLevel level, const char* msg)
@@ -80,3 +81,13 @@ void LogUtils::logTrace(LogLevel level, const char* msg)
 	}
 }
 
+String LogUtils::leadingZero(int nr)
+{
+	String StrNr = "";
+	StrNr = String(nr);
+	if (nr < 10 && nr > -10)
+	{
+		StrNr =  "0" + StrNr;
+	}
+	return StrNr;
+}
