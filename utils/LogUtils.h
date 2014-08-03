@@ -23,6 +23,10 @@ public:
 
 	void processLogs();
 	void logTrace(LogLevel level, const char* msg);
+
+private:
+	String leadingZero(int nr);
+
 };
 
 #endif /* LOGUTILS_H_ */
