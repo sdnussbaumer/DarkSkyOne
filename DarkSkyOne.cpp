@@ -2,6 +2,7 @@
 #include "DarkSkyOne.h"
 #include "SCoop.h"
 #include "LogUtils.h"
+#include "Wdt.h"
 
 // Global variables
 int led = 13;
@@ -72,6 +73,14 @@ void HeartBeatTask::loop()
 //The setup function is called once at startup of the sketch
 void setup()
 {
+	// Initialize Watchdog
+
+	// You have to edit the variants.cpp file in the Arduino core and comment the line "WDT_disable(WDT);"
+	// inside the init function. Else it's not possible to set WDT_Enable again.
+
+	#define __WDP_MS 2048
+	WDT_Enable ( WDT, 0x2000 | __WDP_MS | ( __WDP_MS << 16 ) );
+
 	// Initialize Log class
 	logutils = new LogUtils;
 	logutils->setLogLevel(logutils->trace3);
@@ -87,4 +96,7 @@ void loop()
 {
 	//Add your repeated code here
 	yield();
+
+	// Reset Watchdog
+	WDT_Restart( WDT );
 }
