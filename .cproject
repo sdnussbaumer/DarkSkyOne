@@ -34,7 +34,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/Scheduler}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/libsam/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/libsam/source}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/variant}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.841709262" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
 							</tool>
