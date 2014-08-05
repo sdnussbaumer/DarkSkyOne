@@ -97,7 +97,6 @@ void loop()
 	//Add your repeated code here
 	yield();
 
-	// Reset Watchdog HW
+	// Reset Watchdog
 	WDT_Restart( WDT );
-
 }
