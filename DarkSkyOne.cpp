@@ -99,4 +99,5 @@ void loop()
 
 	// Reset Watchdog HW
 	WDT_Restart( WDT );
+
 }
