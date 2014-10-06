@@ -22,9 +22,10 @@ void setup();
 #endif
 
 //add your function definitions for the project DarkSkyOne here
-
-
-
+typedef struct {
+  char input_buffer[16];
+  char name[20];
+} connection_data;
 
 //Do not add code below this line
 #endif /* DarkSkyOne_H_ */
