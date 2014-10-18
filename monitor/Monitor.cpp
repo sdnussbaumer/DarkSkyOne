@@ -25,7 +25,7 @@ MonitorHandler::~MonitorHandler() {
 	Serial1.end();
 }
 
-void MonitorHandler::setGPS(TinyGPSPlus gps)
+void MonitorHandler::setGPS(TinyGPSPlus& gps)
 {
 	tinyGPS = gps;
 }
