@@ -61,6 +61,8 @@ void MonitorTask::setup()
 void MonitorTask::loop()
 {
 	monitorhandler->handleState();
+
+	yield();
 }
 
 defineTask(GPSReceiverTask)
@@ -72,6 +74,8 @@ void GPSReceiverTask::setup()
 void GPSReceiverTask::loop()
 {
 	monitorhandler->handleGPS();
+
+	yield();
 }
 
 //The setup function is called once at startup of the sketch

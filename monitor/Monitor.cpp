@@ -8,12 +8,13 @@
 #include "Monitor.h"
 #include "TinyGPS++.h"
 #include "LogUtils.h"
+#include "SCoop.h"
 
 // Global Variables
 MonitorHandler::State state_g;
 TinyGPSPlus tinyGPS;
 unsigned long timebase_g;
-String gpsstring = "";
+String nmeaterm = "";
 
 MonitorHandler::MonitorHandler() {
 	// TODO Auto-generated constructor stub
@@ -54,23 +55,22 @@ void MonitorHandler::handleGPS()
 	while (Serial2.available())
 	{
 		int data = Serial2.read();
-		gpsstring += (char)data;
 
-		//Serial.print(char(data));
-		if (tinyGPS.encode(data))
-		{  // new data has arived
-//	    	Serial.print("long: ");
-//	    	Serial.print(tinyGPS.location.rawLng().negative ? "-" : "+");
-//	        Serial.print(tinyGPS.location.lng(),6);
-//	        Serial.println(" deg");
-//	        Serial.print("lat : ");
-//	        Serial.print(tinyGPS.location.rawLat().negative ? "-" : "+");
-//	        Serial.print(tinyGPS.location.lat(),6);
-//	        Serial.println(" deg");
+		if (data >= 0)
+		{
+			if (data > 32)
+			{
+				nmeaterm += (char)data;
+			}
 
-			//LogUtils::instance()->logTrace(LogUtils::trace3, "MonitorHandler::handleGPS NMEA: " + gpsstring);
-			gpsstring = "";
+			if (tinyGPS.encode(data))
+			{  // new data has arived
+				//LogUtils::instance()->logTrace(LogUtils::trace3, "MonitorHandler::handleGPS NMEA: ");
+				Serial.println(nmeaterm);
 
+				yield();
+				nmeaterm = "";
+			}
 		}
 	}
 }

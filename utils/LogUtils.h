@@ -9,6 +9,7 @@
 #define LOGUTILS_H_
 
 #include "Arduino.h"
+#include "SCoop.h"
 
 class LogUtils {
 
@@ -21,9 +22,9 @@ public:
 
 	static LogUtils* instance ()
     {
-       if (!_instance)
-    	   _instance = new LogUtils ();
-       return _instance;
+	   if (!_instance)
+		   _instance = new LogUtils ();
+	   return _instance;
     }
 
 	void setLogLevel(LogLevel level);
