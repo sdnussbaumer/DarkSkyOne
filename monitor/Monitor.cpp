@@ -66,8 +66,6 @@ void MonitorHandler::handleGPS()
 			if (tinyGPS.encode(data))
 			{  // new data has arived
 				//LogUtils::instance()->logTrace(LogUtils::trace3, "MonitorHandler::handleGPS NMEA: ");
-				Serial.println(nmeaterm);
-
 				yield();
 				nmeaterm = "";
 			}
