@@ -8,7 +8,6 @@
 
 // Global variables
 int led = 13;
-LogUtils* logutils;
 TinyGPSPlus gpsp_g;
 MonitorHandler* monitorhandler;
 
@@ -21,7 +20,7 @@ void LogTask::setup()
 
 void LogTask::loop()
 {
-	logutils->processLogs();
+	LogUtils::instance()->processLogs();
 }
 
 defineTask(HeartBeatTask)
@@ -29,35 +28,34 @@ defineTask(HeartBeatTask)
 // HeartBeat Thread
 void HeartBeatTask::setup()
 {
-	logutils->logTrace(logutils->trace3, "Enter HeartBeatTask::setup()");
+	LogUtils::instance()->logTrace(LogUtils::trace3, "Enter HeartBeatTask::setup()");
 
 	pinMode(led, OUTPUT);
 
-	logutils->logTrace(logutils->trace3, "Exit HeartBeatTask::setup()");
+	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit HeartBeatTask::setup()");
 }
 
 void HeartBeatTask::loop()
 {
-	logutils->logTrace(logutils->trace3, "Enter HeartBeatTask::loop()");
+	LogUtils::instance()->logTrace(LogUtils::trace3, "Enter HeartBeatTask::loop()");
 
 	digitalWrite(led, HIGH);
     sleep(500);
 	digitalWrite(led, LOW);
 	sleep(500);
 
-	logutils->logTrace(logutils->trace3, "Exit HeartBeatTask::loop()");
+	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit HeartBeatTask::loop()");
 }
 
 defineTask(MonitorTask)
 
 void MonitorTask::setup()
 {
-	logutils->logTrace(logutils->trace3, "Enter MonitorTask::setup()");
+	LogUtils::instance()->logTrace(LogUtils::trace3, "Enter MonitorTask::setup()");
 
 	monitorhandler = new MonitorHandler();
-	monitorhandler->setGPS(gpsp_g);
 
-	logutils->logTrace(logutils->trace3, "Exit MonitorTask::setup()");
+	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit MonitorTask::setup()");
 }
 
 void MonitorTask::loop()
@@ -69,23 +67,11 @@ defineTask(GPSReceiverTask)
 
 void GPSReceiverTask::setup()
 {
-	logutils->logTrace(logutils->trace3, "Enter GPSReceiverTask::setup()");
-
-	Serial2.begin(4800);
-
-	logutils->logTrace(logutils->trace3, "Exit GPSReceiverTask::setup()");
 }
 
 void GPSReceiverTask::loop()
 {
-	while (Serial2.available())
-	{
-		int data = Serial2.read();
-		if (gpsp_g.encode(data))
-		{  // new data has arived
-			yield();
-		}
-	}
+	monitorhandler->handleGPS();
 }
 
 //The setup function is called once at startup of the sketch
@@ -100,10 +86,9 @@ void setup()
 	WDT_Enable ( WDT, 0x2000 | __WDP_MS | ( __WDP_MS << 16 ) );
 
 	// Initialize Log class
-	logutils = new LogUtils;
-	logutils->setLogLevel(logutils->trace3);
+	LogUtils::instance()->setLogLevel(LogUtils::trace3);
 
-	logutils->logTrace(logutils->trace3, "Main::setup()");
+	LogUtils::instance()->logTrace(LogUtils::trace3, "Main::setup()");
 
 	// Add your initialization code here
 	mySCoop.start();

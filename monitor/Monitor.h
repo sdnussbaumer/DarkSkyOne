@@ -26,6 +26,7 @@ public:
 	virtual ~MonitorHandler();
 	void setGPS(TinyGPSPlus& gps);
 	void handleState();
+	void handleGPS();
 private:
 	void clear();
 	void inflight_display();

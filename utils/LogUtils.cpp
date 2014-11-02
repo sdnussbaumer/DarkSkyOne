@@ -11,9 +11,12 @@
 #include "QueueList.h"
 #include "SCoop.h"
 
+// Global variables
 RTC_clock rtc_clock(XTAL);
-LogUtils::LogLevel loglevel;
 QueueList <String> queue;
+
+// Initialize static variable of Singleton
+LogUtils* LogUtils::_instance = 0;
 
 LogUtils::LogUtils() {
 
@@ -21,12 +24,9 @@ LogUtils::LogUtils() {
 
 	// Open serial communications and wait for port to open:
 	Serial.begin(9600);
-	while (!Serial3) {
-	  ; // wait for serial port to connect. Needed for Leonardo only
-	}
 
 	// set the printer of the queue.
-	queue.setPrinter (Serial3);
+	queue.setPrinter (Serial);
 
 	rtc_clock.init();
 
@@ -61,6 +61,27 @@ void LogUtils::processLogs()
 }
 
 void LogUtils::logTrace(LogLevel level, const char* msg)
+{
+	SCoopATOMIC {
+		if (level <= loglevel)
+		{
+			String levelStr = "";
+
+			switch (level) {
+				case error : levelStr = "E"; break;
+				case warning : levelStr = "W"; break;
+				case information : levelStr = "I"; break;
+				case trace1 : levelStr = "1"; break;
+				case trace2 : levelStr = "2"; break;
+				case trace3 : levelStr = "3"; break;
+			}
+
+    		queue.push(levelStr + "\t" + msg);
+		}
+	}
+}
+
+void LogUtils::logTrace(LogLevel level, const String msg)
 {
 	SCoopATOMIC {
 		if (level <= loglevel)
