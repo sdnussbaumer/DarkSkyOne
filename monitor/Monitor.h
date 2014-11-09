@@ -24,7 +24,6 @@ public:
 
 	MonitorHandler();
 	virtual ~MonitorHandler();
-	void setGPS(TinyGPSPlus& gps);
 	void handleState();
 	void handleGPS();
 private:

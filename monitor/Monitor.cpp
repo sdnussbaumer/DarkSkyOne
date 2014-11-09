@@ -32,11 +32,6 @@ MonitorHandler::~MonitorHandler() {
 	Serial2.end();
 }
 
-void MonitorHandler::setGPS(TinyGPSPlus& gps)
-{
-	tinyGPS = gps;
-}
-
 void MonitorHandler::handleState()
 {
   switch (state_g)
@@ -65,7 +60,7 @@ void MonitorHandler::handleGPS()
 
 			if (tinyGPS.encode(data))
 			{  // new data has arived
-				//LogUtils::instance()->logTrace(LogUtils::trace3, "MonitorHandler::handleGPS NMEA: ");
+				//LogUtils::instance()->logTrace(LogUtils::trace3, "MonitorHandler::handleGPS NMEA: " + nmeaterm);
 				yield();
 				nmeaterm = "";
 			}

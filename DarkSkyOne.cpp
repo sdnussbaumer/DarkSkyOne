@@ -8,7 +8,6 @@
 
 // Global variables
 int led = 13;
-TinyGPSPlus gpsp_g;
 MonitorHandler* monitorhandler;
 
 defineTask(LogTask)
