@@ -211,7 +211,7 @@ environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.TOOLS.
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.TOOLS.BOSSAC.UPLOAD.PARAMS.VERBOSE/value=-i -d
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.TOOLS.BOSSAC.UPLOAD.PATTERN/delimiter=;
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.TOOLS.BOSSAC.UPLOAD.PATTERN/operation=replace
-environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.TOOLS.BOSSAC.UPLOAD.PATTERN/value="${A.PATH}/${A.CMD}" ${A.UPLOAD.VERBOSE} --port\=${A.SERIAL.PORT.FILE} -U ${A.UPLOAD.NATIVE_USB} -e -w -v -b "${A.BUILD.PATH}/${A.BUILD.PROJECT_NAME}.bin" -R
+environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.TOOLS.BOSSAC.UPLOAD.PATTERN/value="${A.PATH}/${A.CMD}" ${A.UPLOAD.VERBOSE} --port\=${A.SERIAL.PORT.FILE} -U ${A.UPLOAD.NATIVE_USB} -e -w -b "${A.BUILD.PATH}/${A.BUILD.PROJECT_NAME}.bin" -R
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.UPLOAD.MAXIMUM_SIZE/delimiter=;
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.UPLOAD.MAXIMUM_SIZE/operation=replace
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.UPLOAD.MAXIMUM_SIZE/value=524288

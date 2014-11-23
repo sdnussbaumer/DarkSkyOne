@@ -14,7 +14,7 @@
 class LogUtils {
 
 public:
-	enum LogLevel { error, warning, information, trace1, trace2, trace3 };
+	enum LogLevel { off, error, warning, information, trace1, trace2, trace3 };
 
     LogUtils ();
     LogUtils ( const LogUtils& );

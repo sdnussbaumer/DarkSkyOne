@@ -50,13 +50,13 @@ LogUtils::LogLevel LogUtils::getLogLevel(){
 
 void LogUtils::processLogs()
 {
-	// pop all the string messages from the queue.
-	while (!queue.isEmpty ()) {
-
+	if (!queue.isEmpty())
+	{
 		String StrTime = leadingZero(rtc_clock.get_days()) +"."+ leadingZero(rtc_clock.get_months()) +"."+ leadingZero(rtc_clock.get_years());
 		StrTime += "\t" + leadingZero(rtc_clock.get_hours()) +":"+ leadingZero(rtc_clock.get_minutes()) +":"+ leadingZero(rtc_clock.get_seconds());
 
 		Serial.print(StrTime + "\t" + queue.pop () + "\n");
+
 	}
 }
 

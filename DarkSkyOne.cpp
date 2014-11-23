@@ -3,7 +3,6 @@
 #include "SCoop.h"
 #include "LogUtils.h"
 #include "Wdt.h"
-#include "TinyGPS++.h"
 #include "Monitor.h"
 
 // Global variables
@@ -20,6 +19,8 @@ void LogTask::setup()
 void LogTask::loop()
 {
 	LogUtils::instance()->processLogs();
+
+	mySCoop.sleep(10);
 }
 
 defineTask(HeartBeatTask)
@@ -39,9 +40,9 @@ void HeartBeatTask::loop()
 	LogUtils::instance()->logTrace(LogUtils::trace3, "Enter HeartBeatTask::loop()");
 
 	digitalWrite(led, HIGH);
-    sleep(500);
+	mySCoop.sleep(500);
 	digitalWrite(led, LOW);
-	sleep(500);
+	mySCoop.sleep(500);
 
 	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit HeartBeatTask::loop()");
 }
@@ -61,7 +62,7 @@ void MonitorTask::loop()
 {
 	monitorhandler->handleState();
 
-	yield();
+	mySCoop.sleep(10);
 }
 
 defineTask(GPSReceiverTask)
@@ -74,7 +75,7 @@ void GPSReceiverTask::loop()
 {
 	monitorhandler->handleGPS();
 
-	yield();
+	mySCoop.sleep(10);
 }
 
 //The setup function is called once at startup of the sketch
@@ -89,12 +90,14 @@ void setup()
 	WDT_Enable ( WDT, 0x2000 | __WDP_MS | ( __WDP_MS << 16 ) );
 
 	// Initialize Log class
-	LogUtils::instance()->setLogLevel(LogUtils::trace3);
+	LogUtils::instance()->setLogLevel(LogUtils::trace1);
 
-	LogUtils::instance()->logTrace(LogUtils::trace3, "Main::setup()");
+	LogUtils::instance()->logTrace(LogUtils::information, "Booting DarkSky One ....");
 
 	// Add your initialization code here
 	mySCoop.start();
+
+	LogUtils::instance()->logTrace(LogUtils::information, "Booting DarkSky One done!");
 }
 
 // The loop function is called in an endless loop

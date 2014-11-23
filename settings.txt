@@ -1,0 +1,12 @@
+Environment Variables
+----------------------
+
+Original:
+---------
+A.TOOLS.BOSSAC.UPLOAD.PATTERN
+"${A.PATH}/${A.CMD}" ${A.UPLOAD.VERBOSE} --port=${A.SERIAL.PORT.FILE} -U ${A.UPLOAD.NATIVE_USB} -e -w -v -b "${A.BUILD.PATH}/${A.BUILD.PROJECT_NAME}.bin" -R
+
+Changed on 23.11.2014:
+----------------------
+A.TOOLS.BOSSAC.UPLOAD.PATTERN
+"${A.PATH}/${A.CMD}" ${A.UPLOAD.VERBOSE} --port=${A.SERIAL.PORT.FILE} -U ${A.UPLOAD.NATIVE_USB} -e -w -b "${A.BUILD.PATH}/${A.BUILD.PROJECT_NAME}.bin" -R
