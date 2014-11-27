@@ -12,14 +12,19 @@
 
 // Global Variables
 MonitorHandler::State state_g;
-TinyGPSPlus tinyGPS;
+TinyGPSPlus *tinyGPS;
 unsigned long timebase_g;
 String nmeaTerm = "";
-bool nmeaTestMode = true;
+bool nmeaTestMode = false;
+
+// Initialize static variable of Singleton
+MonitorHandler* MonitorHandler::_instance = 0;
 
 MonitorHandler::MonitorHandler() {
 	// TODO Auto-generated constructor stub
 	state_g = State_main_input;
+
+	tinyGPS = new TinyGPSPlus();
 
 	Serial1.begin(115200);
 	Serial2.begin(4800);
@@ -86,37 +91,37 @@ void MonitorHandler::handleGPS()
 			"$GPGSV,3,3,11,17,04,221,18,16,04,080,,30,03,187,15*42\r\n";
 
 		// Test Encoding procedure
-		SCoopATOMIC {
-			while (*gpsStream)
+		while (*gpsStream)
+		{
+			if (tinyGPS->encode(*gpsStream++))
 			{
-				tinyGPS.encode(*gpsStream++);
+				yield();
 			}
 		}
 	}
 	else
 	{
-		SCoopATOMIC {
-			while (Serial2.available() > 0) {
+		while (Serial2.available() > 0) {
 
-				int gpsChar = Serial2.read();
+			int gpsChar = Serial2.read();
 
-				if (gpsChar >= 0 && gpsChar <= 255)
+			if (gpsChar >= 0 && gpsChar <= 255)
+			{
+				if (gpsChar > 32)
 				{
-					if (gpsChar > 32)
-					{
-						nmeaTerm += (char)gpsChar;
-					}
+					nmeaTerm += (char)gpsChar;
+				}
 
-					if (tinyGPS.encode((char)gpsChar)) {
-						yield();
+				if (tinyGPS->encode((char)gpsChar)) {
+					LogUtils::instance()->logTrace(LogUtils::trace1, nmeaTerm);
+					nmeaTerm = "";
 
-						LogUtils::instance()->logTrace(LogUtils::trace1, nmeaTerm);
-						nmeaTerm = "";
-					}
+					yield();
+					sleep(200);
 				}
 			}
 		}
-		if (millis() > 5000 && tinyGPS.charsProcessed() < 10)
+		if (millis() > 5000 && tinyGPS->charsProcessed() < 10)
 		{
 			LogUtils::instance()->logTrace(LogUtils::error, "No GPS detected: check wiring.");
 		}
@@ -196,12 +201,12 @@ void MonitorHandler::gps_input()
       case '1':
       {
 		Serial1.print("long: ");
-		Serial1.print(tinyGPS.location.rawLng().negative ? "-" : "+");
-		Serial1.print(tinyGPS.location.lng(),6);
+		Serial1.print(tinyGPS->location.rawLng().negative ? "-" : "+");
+		Serial1.print(tinyGPS->location.lng(),6);
 		Serial1.println(" deg");
 		Serial1.print("lat : ");
-		Serial1.print(tinyGPS.location.rawLat().negative ? "-" : "+");
-		Serial1.print(tinyGPS.location.lat(),6);
+		Serial1.print(tinyGPS->location.rawLat().negative ? "-" : "+");
+		Serial1.print(tinyGPS->location.lat(),6);
 		Serial1.println(" deg");
       }
       break;
@@ -209,7 +214,7 @@ void MonitorHandler::gps_input()
       case '2':
       {
 		Serial1.print("height: ");
-		Serial1.print(tinyGPS.altitude.meters());
+		Serial1.print(tinyGPS->altitude.meters());
 		Serial1.println("m");
       }
       break;
@@ -217,10 +222,10 @@ void MonitorHandler::gps_input()
       case '3':
       {
 		Serial1.print("speed : ");
-		Serial1.print(tinyGPS.speed.kmph());
+		Serial1.print(tinyGPS->speed.kmph());
 		Serial1.println(" km/h");
 		Serial1.print("course: ");
-		Serial1.print(tinyGPS.course.deg());
+		Serial1.print(tinyGPS->course.deg());
 		Serial1.println(" deg");
       }
       break;
@@ -228,12 +233,12 @@ void MonitorHandler::gps_input()
       case '4':
       {
 		int y,m,d,hr,mi,sc;
-		y = tinyGPS.date.year();
-		m = tinyGPS.date.month();
-		d = tinyGPS.date.day();
-		hr = tinyGPS.time.hour();
-		mi = tinyGPS.time.minute();
-		sc = tinyGPS.time.second();
+		y = tinyGPS->date.year();
+		m = tinyGPS->date.month();
+		d = tinyGPS->date.day();
+		hr = tinyGPS->time.hour();
+		mi = tinyGPS->time.minute();
+		sc = tinyGPS->time.second();
 		Serial1.print("date: ");
 		Serial1.print(y); Serial1.print("-");
 		if (m < 10) {Serial1.print("0");}
@@ -252,6 +257,14 @@ void MonitorHandler::gps_input()
       case '5':
       {
    		  nmeaTestMode = !nmeaTestMode;
+   		  if (nmeaTestMode)
+   		  {
+   			  Serial1.println("NMEA Test Mode activated!");
+   		  }
+   		  else
+   		  {
+   			  Serial1.println("NMEA Test Mode deactivated!");
+   		  }
       }
       break;
 

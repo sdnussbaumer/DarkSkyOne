@@ -24,6 +24,14 @@ public:
 
 	MonitorHandler();
 	virtual ~MonitorHandler();
+
+	static MonitorHandler* instance ()
+    {
+	   if (!_instance)
+		   _instance = new MonitorHandler ();
+	   return _instance;
+    }
+
 	void handleState();
 	void handleGPS();
 private:
@@ -34,6 +42,7 @@ private:
 	void gps_input();
 	void main_display();
 	void main_input();
+	static MonitorHandler* _instance;
 };
 
 #endif /* MONITOR_H_ */

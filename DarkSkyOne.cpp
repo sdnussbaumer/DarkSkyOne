@@ -7,7 +7,6 @@
 
 // Global variables
 int led = 13;
-MonitorHandler* monitorhandler;
 
 defineTask(LogTask)
 
@@ -51,29 +50,11 @@ defineTask(MonitorTask)
 
 void MonitorTask::setup()
 {
-	LogUtils::instance()->logTrace(LogUtils::trace3, "Enter MonitorTask::setup()");
-
-	monitorhandler = new MonitorHandler();
-
-	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit MonitorTask::setup()");
 }
 
 void MonitorTask::loop()
 {
-	monitorhandler->handleState();
-
-	mySCoop.sleep(10);
-}
-
-defineTask(GPSReceiverTask)
-
-void GPSReceiverTask::setup()
-{
-}
-
-void GPSReceiverTask::loop()
-{
-	monitorhandler->handleGPS();
+	MonitorHandler::instance()->handleState();
 
 	mySCoop.sleep(10);
 }
@@ -90,7 +71,7 @@ void setup()
 	WDT_Enable ( WDT, 0x2000 | __WDP_MS | ( __WDP_MS << 16 ) );
 
 	// Initialize Log class
-	LogUtils::instance()->setLogLevel(LogUtils::trace1);
+	LogUtils::instance()->setLogLevel(LogUtils::information);
 
 	LogUtils::instance()->logTrace(LogUtils::information, "Booting DarkSky One ....");
 
@@ -105,6 +86,8 @@ void loop()
 {
 	//Add your repeated code here
 	yield();
+
+	MonitorHandler::instance()->handleGPS();
 
 	// Reset Watchdog
 	WDT_Restart( WDT );
