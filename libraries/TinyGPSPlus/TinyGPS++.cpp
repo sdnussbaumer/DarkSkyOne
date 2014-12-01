@@ -114,7 +114,7 @@ int32_t TinyGPSPlus::parseDecimal(const char *term)
 {
   bool negative = *term == '-';
   if (negative) ++term;
-  int32_t ret = 100 * (int32_t)atol(term);
+  int32_t ret = 100 * (int32_t)atoff(term);
   while (isdigit(*term)) ++term;
   if (*term == '.' && isdigit(term[1]))
   {
@@ -129,7 +129,7 @@ int32_t TinyGPSPlus::parseDecimal(const char *term)
 // Parse degrees in that funny NMEA format DDMM.MMMM
 void TinyGPSPlus::parseDegrees(const char *term, RawDegrees &deg)
 {
-  uint32_t leftOfDecimal = (uint32_t)atol(term);
+  uint32_t leftOfDecimal = (uint32_t)atoff(term);
   uint16_t minutes = (uint16_t)(leftOfDecimal % 100);
   uint32_t multiplier = 10000000UL;
   uint32_t tenMillionthsOfMinutes = minutes * multiplier;
@@ -385,7 +385,7 @@ void TinyGPSTime::setTime(const char *term)
 
 void TinyGPSDate::setDate(const char *term)
 {
-   newDate = atol(term);
+   newDate = (int32_t)atoff(term);
 }
 
 uint16_t TinyGPSDate::year()
@@ -452,7 +452,7 @@ void TinyGPSInteger::commit()
 
 void TinyGPSInteger::set(const char *term)
 {
-   newval = atol(term);
+   newval = (int32_t)atoff(term);
 }
 
 TinyGPSCustom::TinyGPSCustom(TinyGPSPlus &gps, const char *_sentenceName, int _termNumber)
