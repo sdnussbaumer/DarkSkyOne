@@ -35,6 +35,12 @@ public:
 	void handleState();
 	void handleGPS();
 private:
+	State state_g;
+	TinyGPSPlus *tinyGPS;
+	unsigned long timebase_g;
+	String nmeaTerm;
+	bool nmeaTestMode;
+
 	void clear();
 	void inflight_display();
 	void inflight_input();

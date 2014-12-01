@@ -10,20 +10,14 @@
 #include "LogUtils.h"
 #include "SCoop.h"
 
-// Global Variables
-MonitorHandler::State state_g;
-TinyGPSPlus *tinyGPS;
-unsigned long timebase_g;
-String nmeaTerm = "";
-bool nmeaTestMode = false;
-
 // Initialize static variable of Singleton
 MonitorHandler* MonitorHandler::_instance = 0;
 
 MonitorHandler::MonitorHandler() {
 	// TODO Auto-generated constructor stub
 	state_g = State_main_input;
-
+	nmeaTerm = "";
+	nmeaTestMode = true;
 	tinyGPS = new TinyGPSPlus();
 
 	Serial1.begin(115200);
