@@ -17,7 +17,7 @@ MonitorHandler::MonitorHandler() {
 	// TODO Auto-generated constructor stub
 	state_g = State_main_input;
 	nmeaTerm = "";
-	nmeaTestMode = true;
+	nmeaTestMode = false;
 	tinyGPS = new TinyGPSPlus();
 
 	Serial1.begin(115200);
