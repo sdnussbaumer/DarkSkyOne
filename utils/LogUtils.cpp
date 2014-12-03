@@ -10,6 +10,8 @@
 #include "rtc_clock.h"
 #include "QueueList.h"
 #include "SCoop.h"
+#include "SPI.h"
+#include "SD.h"
 
 // Global variables
 RTC_clock rtc_clock(XTAL);
@@ -55,8 +57,23 @@ void LogUtils::processLogs()
 		String StrTime = leadingZero(rtc_clock.get_days()) +"."+ leadingZero(rtc_clock.get_months()) +"."+ leadingZero(rtc_clock.get_years());
 		StrTime += "\t" + leadingZero(rtc_clock.get_hours()) +":"+ leadingZero(rtc_clock.get_minutes()) +":"+ leadingZero(rtc_clock.get_seconds());
 
-		Serial.print(StrTime + "\t" + queue.pop () + "\n");
+		String msg = queue.pop ();
 
+		Serial.print(StrTime + "\t" + msg + "\n");
+
+		// open the file. note that only one file can be open at a time,
+		// so you have to close this one before opening another.
+		File dataFile = SD.open("syslog.txt", FILE_WRITE);
+
+		// if the file is available, write to it:
+		if (dataFile) {
+			dataFile.println(StrTime + "\t" + msg);
+			dataFile.close();
+		}
+		// if the file isn't open, pop up an error:
+		else {
+			logTrace(error, "error opening syslog.txt");
+		}
 	}
 }
 

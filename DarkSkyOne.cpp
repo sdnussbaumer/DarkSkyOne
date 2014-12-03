@@ -4,9 +4,12 @@
 #include "LogUtils.h"
 #include "Wdt.h"
 #include "Monitor.h"
+#include "SPI.h"
+#include "SD.h"
 
 // Global variables
 int led = 13;
+const int chipSelect = 4;
 
 defineTask(LogTask)
 
@@ -71,12 +74,26 @@ void setup()
 	WDT_Enable ( WDT, 0x2000 | __WDP_MS | ( __WDP_MS << 16 ) );
 
 	// Initialize Log class
-	LogUtils::instance()->setLogLevel(LogUtils::information);
+	LogUtils::instance()->setLogLevel(LogUtils::trace1);
 
 	LogUtils::instance()->logTrace(LogUtils::information, "Booting DarkSky One ....");
 
 	// Add your initialization code here
 	mySCoop.start();
+
+	LogUtils::instance()->logTrace(LogUtils::information, "Initializing SD card...");
+
+	// make sure that the default chip select pin is set to
+	// output, even if you don't use it:
+	pinMode(10, OUTPUT);
+
+	// see if the card is present and can be initialized:
+	if (!SD.begin(chipSelect)) {
+		LogUtils::instance()->logTrace(LogUtils::error, "Card failed, or not present");
+		// don't do anything more:
+		return;
+	}
+	LogUtils::instance()->logTrace(LogUtils::information, "card initialized");
 
 	LogUtils::instance()->logTrace(LogUtils::information, "Booting DarkSky One done!");
 }
