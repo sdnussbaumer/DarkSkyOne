@@ -1,6 +1,6 @@
 /*
-Trace Logging class.
-Copyright (C) 2014 Sascha Nussbaumer
+HMC5883 - compass module.
+Copyright (C) 2014 Stefan Mauerhofer
 All rights reserved.
 
 This library is free software; you can redistribute it and/or
@@ -18,40 +18,31 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef LOGUTILS_H_
-#define LOGUTILS_H_
+#ifndef HMC5883_h
+#define HMC5883_h
+#include <I2CSensor.h>
 
-#include <Arduino.h>
-#include <SCoop.h>
 
-class LogUtils {
+
+class HMC5883 : public I2CSensor
+{
+private:
+	short idata_[3];
+	double data_[3];
+	double gain_[3];
 
 public:
-	enum LogLevel { off, error, warning, information, trace1, trace2, trace3 };
 
-    LogUtils ();
-    LogUtils ( const LogUtils& );
-    ~LogUtils ();
+	HMC5883();
 
-	static LogUtils* instance ()
-    {
-	   if (!_instance)
-		   _instance = new LogUtils ();
-	   return _instance;
-    }
+	void setup();
+	void update();
 
-	void setLogLevel(LogLevel level);
-	LogLevel getLogLevel();
+	int getStatus();
+	int getId();
 
-	void processLogs();
-	void logTrace(LogLevel level, const char* msg);
-	void logTrace(LogLevel level, const String msg);
+	double* getData() {return data_;}
 
-private:
-	static LogUtils* _instance;
-    LogLevel loglevel;
-
-	String leadingZero(int nr);
 };
-#endif /* LOGUTILS_H_ */
 
+#endif

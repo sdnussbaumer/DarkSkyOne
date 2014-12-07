@@ -1,6 +1,6 @@
 /*
-Trace Logging class.
-Copyright (C) 2014 Sascha Nussbaumer
+GY80 - sensor task.
+Copyright (C) 2014 Stefan Mauerhofer
 All rights reserved.
 
 This library is free software; you can redistribute it and/or
@@ -18,40 +18,33 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef LOGUTILS_H_
-#define LOGUTILS_H_
+#ifndef GY80TASK_h
+#define GY80TASK_h
 
-#include <Arduino.h>
-#include <SCoop.h>
+#include <GY80.h>
 
-class LogUtils {
+
+class GY80Task
+{
+private:
+	GY80  gy80_;
+	unsigned long sensor_read_delay_;
 
 public:
-	enum LogLevel { off, error, warning, information, trace1, trace2, trace3 };
 
-    LogUtils ();
-    LogUtils ( const LogUtils& );
-    ~LogUtils ();
+	GY80Task();
 
-	static LogUtils* instance ()
-    {
-	   if (!_instance)
-		   _instance = new LogUtils ();
-	   return _instance;
-    }
 
-	void setLogLevel(LogLevel level);
-	LogLevel getLogLevel();
+	void setup();
+	void loop();
 
-	void processLogs();
-	void logTrace(LogLevel level, const char* msg);
-	void logTrace(LogLevel level, const String msg);
+	GY80& getGY80() {return gy80_;}
 
-private:
-	static LogUtils* _instance;
-    LogLevel loglevel;
+	void printPressure();
+	void printAccelerator();
+	void printGyroscope();
+	void printCompass();
 
-	String leadingZero(int nr);
 };
-#endif /* LOGUTILS_H_ */
 
+#endif

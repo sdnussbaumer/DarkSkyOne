@@ -1,6 +1,6 @@
 /*
-Trace Logging class.
-Copyright (C) 2014 Sascha Nussbaumer
+GY80 - sensor module.
+Copyright (C) 2014 Stefan Mauerhofer
 All rights reserved.
 
 This library is free software; you can redistribute it and/or
@@ -18,40 +18,36 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef LOGUTILS_H_
-#define LOGUTILS_H_
+#ifndef GY80_h
+#define GY80_h
 
-#include <Arduino.h>
-#include <SCoop.h>
+#include <BMP085.h>
+#include <ADXL345.h>
+#include <HMC5883.h>
+#include <L3G4200D.h>
 
-class LogUtils {
+
+class GY80
+{
+private:
+	BMP085		sensor1_;
+	ADXL345		sensor2_;
+	HMC5883		sensor3_;
+	L3G4200D	sensor4_;
 
 public:
-	enum LogLevel { off, error, warning, information, trace1, trace2, trace3 };
 
-    LogUtils ();
-    LogUtils ( const LogUtils& );
-    ~LogUtils ();
+	GY80();
 
-	static LogUtils* instance ()
-    {
-	   if (!_instance)
-		   _instance = new LogUtils ();
-	   return _instance;
-    }
 
-	void setLogLevel(LogLevel level);
-	LogLevel getLogLevel();
+	void setup();
+	void update();
 
-	void processLogs();
-	void logTrace(LogLevel level, const char* msg);
-	void logTrace(LogLevel level, const String msg);
+	BMP085& sensor1() {return sensor1_;}
+	ADXL345& sensor2() {return sensor2_;}
+	HMC5883& sensor3() {return sensor3_;}
+	L3G4200D& sensor4() {return sensor4_;}
 
-private:
-	static LogUtils* _instance;
-    LogLevel loglevel;
-
-	String leadingZero(int nr);
 };
-#endif /* LOGUTILS_H_ */
 
+#endif

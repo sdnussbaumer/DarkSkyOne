@@ -44,7 +44,7 @@
 		<link>
 			<name>arduino/Wire</name>
 			<type>2</type>
-			<location>C:/Applications/arduino-1.5.2/hardware/teensy/all/libraries/Wire</location>
+			<location>C:/Applications/arduino-1.5.2/hardware/arduino/sam/libraries/Wire</location>
 		</link>
 		<link>
 			<name>arduino/core</name>

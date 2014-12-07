@@ -1,6 +1,6 @@
 /*
-Trace Logging class.
-Copyright (C) 2014 Sascha Nussbaumer
+GY80 - sensor module.
+Copyright (C) 2014 Stefan Mauerhofer
 All rights reserved.
 
 This library is free software; you can redistribute it and/or
@@ -18,40 +18,28 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef LOGUTILS_H_
-#define LOGUTILS_H_
+#include "GY80.h"
 
-#include <Arduino.h>
-#include <SCoop.h>
+GY80::GY80()
+{
+}
 
-class LogUtils {
+void GY80::setup()
+{
+	//Serial.println("GY80::setup");
+	sensor1_.setup();
+	sensor2_.setup();
+	sensor3_.setup();
+	sensor4_.setup();
+}
 
-public:
-	enum LogLevel { off, error, warning, information, trace1, trace2, trace3 };
+void GY80::update()
+{
+	sensor1_.update();
+	sensor2_.update();
+	sensor3_.update();
+	sensor4_.update();
+}
 
-    LogUtils ();
-    LogUtils ( const LogUtils& );
-    ~LogUtils ();
 
-	static LogUtils* instance ()
-    {
-	   if (!_instance)
-		   _instance = new LogUtils ();
-	   return _instance;
-    }
-
-	void setLogLevel(LogLevel level);
-	LogLevel getLogLevel();
-
-	void processLogs();
-	void logTrace(LogLevel level, const char* msg);
-	void logTrace(LogLevel level, const String msg);
-
-private:
-	static LogUtils* _instance;
-    LogLevel loglevel;
-
-	String leadingZero(int nr);
-};
-#endif /* LOGUTILS_H_ */
 

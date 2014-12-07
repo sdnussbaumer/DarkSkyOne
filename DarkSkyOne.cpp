@@ -1,15 +1,42 @@
+/*
+DarkSkyOne Board Computer main unit.
+Copyright (C) 2014 Sascha Nussbaumer
+All rights reserved.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
 // Do not remove the include below
 #include "DarkSkyOne.h"
 #include "SCoop.h"
 #include "LogUtils.h"
 #include "Wdt.h"
-#include "Monitor.h"
 #include "SPI.h"
 #include "SD.h"
+#include "GY80.h"
+#include "GY80Task.h"
+#include "Wire.h"
+#include "FlightUser.h"
+#include "GPS.h"
 
 // Global variables
 int led = 13;
 const int chipSelect = 4;
+
+static GY80Task gy80_task;
+static FlightUser *user_g;
 
 defineTask(LogTask)
 
@@ -49,15 +76,30 @@ void HeartBeatTask::loop()
 	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit HeartBeatTask::loop()");
 }
 
+//defineTask(SensorTask)
+//
+//void SensorTask::setup()
+//{
+//	//gy80_task.setup();
+//}
+//
+//void SensorTask::loop()
+//{
+//	//gy80_task.loop();
+//	sleep(100);
+//}
+
 defineTask(MonitorTask)
 
 void MonitorTask::setup()
 {
+	user_g = new FlightUser(gy80_task, GPS::instance()->getGPS());
+	user_g->setup();
 }
 
 void MonitorTask::loop()
 {
-	MonitorHandler::instance()->handleState();
+    user_g->loop();
 
 	mySCoop.sleep(10);
 }
@@ -104,7 +146,7 @@ void loop()
 	//Add your repeated code here
 	yield();
 
-	MonitorHandler::instance()->handleGPS();
+	GPS::instance()->handleGPS();
 
 	// Reset Watchdog
 	WDT_Restart( WDT );
