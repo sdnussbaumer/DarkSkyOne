@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "Arduino.h"
 #include "FlightUser.h"
-#include "GPS.h"
+#include "GPSTask.h"
 
 FlightUser::FlightUser(GY80Task &gy80, TinyGPSPlus &gps)
 :
@@ -109,7 +109,7 @@ void FlightUser::gpsDisplay()
 	Serial1.println("Height ..................... 2");
 	Serial1.println("Speed & course ............. 3");
 	Serial1.println("Date & time ................ 4");
-	if (GPS::instance()->getTestMode())
+	if (GPSTask::instance()->getTestMode())
 	{
 	  Serial1.println("Disable NMEA TestMode....... 5");
 	}
@@ -186,8 +186,8 @@ void FlightUser::gpsInput()
 
       case '5':
       {
-    	  GPS::instance()->setTestMode(!GPS::instance()->getTestMode());
-   		  if (GPS::instance()->getTestMode())
+    	  GPSTask::instance()->setTestMode(!GPSTask::instance()->getTestMode());
+   		  if (GPSTask::instance()->getTestMode())
    		  {
    			  Serial1.println("NMEA Test Mode activated!");
    		  }

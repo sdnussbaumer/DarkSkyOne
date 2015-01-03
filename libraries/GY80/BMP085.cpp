@@ -41,9 +41,8 @@ void BMP085::setup()
 void BMP085::update()
 {
 	calibrate();
-	temperature_ = calcTemp(readUT());
+	temperature_ = calcTemp(readUT()) * 0.1;
 	pressure_ = calcPressure(readUP());
-	temperature_ *= 0.1;
 }
 /*
 void loop()

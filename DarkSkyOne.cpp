@@ -29,13 +29,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "GY80Task.h"
 #include "Wire.h"
 #include "FlightUser.h"
-#include "GPS.h"
+#include "GPSTask.h"
 
 // Global variables
 int led = 13;
 const int chipSelect = 4;
 
-static GY80Task gy80_task;
 static FlightUser *user_g;
 
 defineTask(LogTask)
@@ -76,24 +75,11 @@ void HeartBeatTask::loop()
 	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit HeartBeatTask::loop()");
 }
 
-//defineTask(SensorTask)
-//
-//void SensorTask::setup()
-//{
-//	//gy80_task.setup();
-//}
-//
-//void SensorTask::loop()
-//{
-//	//gy80_task.loop();
-//	sleep(100);
-//}
-
 defineTask(MonitorTask)
 
 void MonitorTask::setup()
 {
-	user_g = new FlightUser(gy80_task, GPS::instance()->getGPS());
+	user_g = new FlightUser(GY80Task::instance()->getGY80Task(), GPSTask::instance()->getGPS());
 	user_g->setup();
 }
 
@@ -116,7 +102,7 @@ void setup()
 	WDT_Enable ( WDT, 0x2000 | __WDP_MS | ( __WDP_MS << 16 ) );
 
 	// Initialize Log class
-	LogUtils::instance()->setLogLevel(LogUtils::trace1);
+	LogUtils::instance()->setLogLevel(LogUtils::information);
 
 	LogUtils::instance()->logTrace(LogUtils::information, "Booting DarkSky One ....");
 
@@ -146,7 +132,9 @@ void loop()
 	//Add your repeated code here
 	yield();
 
-	GPS::instance()->handleGPS();
+	GPSTask::instance()->handleGPS();
+
+	GY80Task::instance()->handleGY80();
 
 	// Reset Watchdog
 	WDT_Restart( WDT );
