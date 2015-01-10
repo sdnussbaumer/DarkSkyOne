@@ -14,37 +14,38 @@
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 				<configuration artifactName="${ProjName}" buildProperties="" description="" id="it.baeyens.arduino.core.toolChain.release.356815368" name="Release" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="it.baeyens.arduino.core.toolChain.release.356815368.757227452" name="/" resourcePath="">
-						<toolChain id="it.baeyens.arduino.core.toolChain.release.1535266491" name="it.baeyens.arduino.core.toolChain.release" superClass="it.baeyens.arduino.core.toolChain.release">
+						<toolChain id="it.baeyens.arduino.core.toolChain.release.1535266491" name="it.baeyens.arduino.core.toolChain.release" resourceTypeBasedDiscovery="true" superClass="it.baeyens.arduino.core.toolChain.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="it.baeyens.arduino.targetplatform.496406784" name="Arduino Target" osList="all" superClass="it.baeyens.arduino.targetplatform"/>
 							<builder buildPath="${workspace_loc:/DarkSkyOne}/Release" id="it.baeyens.arduino.sketch.builder.1212085747" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Arduino sketch builder" superClass="it.baeyens.arduino.sketch.builder"/>
 							<tool id="it.baeyens.arduino.tool.sketch.compiler.cpp.533909728" name="Arduino C++ Compiler" superClass="it.baeyens.arduino.tool.sketch.compiler.cpp">
 								<option id="it.baeyens.arduino.compiler.cpp.sketch.option.incpath.1527911789" name="Include Paths (-I)" superClass="it.baeyens.arduino.compiler.cpp.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/SD}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/SD/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/SPI}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/SCoop}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/Time}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/Due-RTC}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/utils}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/comstack}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/QueueList}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/Scheduler}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/libsam/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/libsam/source}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/TinyGPSPlus}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/monitor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/GY80}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/peripherals}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/SD}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/SD/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/SPI}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/libraries/SCoop}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/Time}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/libraries/Due-RTC}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/utils}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/comstack}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/libraries/QueueList}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/libraries/Scheduler}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/libsam}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/libsam/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/libsam/source}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/libraries/TinyGPSPlus}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/monitor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/libraries/GY80}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/peripherals}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.841709262" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="it.baeyens.arduino.tool.compiler.c.633882443" name="Arduino C Compiler" superClass="it.baeyens.arduino.tool.compiler.c">
 								<option id="it.baeyens.arduino.compiler.c.sketch.option.incpath.737572551" name="Include Paths (-I)" superClass="it.baeyens.arduino.compiler.c.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/FlightComputer/arduino/variant}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.c.sketch.input.162559135" name="C Source Files" superClass="it.baeyens.arduino.compiler.c.sketch.input"/>
 							</tool>
@@ -66,9 +67,6 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="DarkSkyOne.null.738649800" name="DarkSkyOne"/>
 	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Release">
@@ -76,4 +74,10 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="it.baeyens.arduino.core.toolChain.release.356815368">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
 </cproject>
