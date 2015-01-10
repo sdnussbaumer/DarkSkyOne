@@ -34,8 +34,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/Scheduler}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/libsam/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/arduino/libsam/source}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/SerialIP}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/SerialIP/utility}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/TinyGPSPlus}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/monitor}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DarkSkyOne/libraries/GY80}&quot;"/>
