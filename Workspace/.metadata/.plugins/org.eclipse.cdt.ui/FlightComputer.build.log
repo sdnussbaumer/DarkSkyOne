@@ -1,4 +1,4 @@
-13:23:15 **** Build of configuration Release for project FlightComputer ****
+14:07:37 **** Build of configuration Release for project FlightComputer ****
 make all 
 Building file: ../DarkSkyOne.cpp
 Starting C++ compile
@@ -406,5 +406,5 @@ Total             705666
 Finished building target: FlightComputer
  
 
-13:23:37 Build Finished (took 21s.227ms)
+14:07:58 Build Finished (took 20s.984ms)
 
