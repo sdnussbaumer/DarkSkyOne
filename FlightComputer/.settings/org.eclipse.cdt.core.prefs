@@ -230,6 +230,9 @@ environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.UPLOAD
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.UPLOAD.WAIT_FOR_UPLOAD_PORT/delimiter=;
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.UPLOAD.WAIT_FOR_UPLOAD_PORT/operation=replace
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/A.UPLOAD.WAIT_FOR_UPLOAD_PORT/value=false
+environment/project/it.baeyens.arduino.core.toolChain.release.356815368/ARDUINO_IDE/delimiter=;
+environment/project/it.baeyens.arduino.core.toolChain.release.356815368/ARDUINO_IDE/operation=append
+environment/project/it.baeyens.arduino.core.toolChain.release.356815368/ARDUINO_IDE/value=C\:\\Applications\\arduino-1.5.2
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/JANTJE.BOARDS_FILE/delimiter=;
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/JANTJE.BOARDS_FILE/operation=replace
 environment/project/it.baeyens.arduino.core.toolChain.release.356815368/JANTJE.BOARDS_FILE/value=C\:\\Applications\\arduino-1.5.2\\hardware\\arduino\\sam\\boards.txt
