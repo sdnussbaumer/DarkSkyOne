@@ -1,0 +1,30 @@
+12:48:40 **** Incremental Build of configuration Release for project FlightComputer ****
+make all 
+Building target: FlightComputer
+Printing size:
+"C:/Applications/arduino-1.5.2/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-size" -A "D:/Daten/Projekte/Arduino/DarkSkyOne/FlightComputer/Release/FlightComputer.elf"
+D:/Daten/Projekte/Arduino/DarkSkyOne/FlightComputer/Release/FlightComputer.elf  :
+section             size        addr
+.text             101496      524288
+.ARM.exidx           544      625784
+.relocate           1468   537329664
+.bss                6096   537331132
+.ARM.attributes       37           0
+.comment            2536           0
+.debug_abbrev      42222           0
+.debug_info       285353           0
+.debug_line        64807           0
+.debug_loc         64330           0
+.debug_pubnames    24477           0
+.debug_aranges      9328           0
+.debug_ranges      16056           0
+.debug_str         53140           0
+.debug_frame       33776           0
+Total             705666
+
+
+Finished building target: FlightComputer
+ 
+
+12:48:41 Build Finished (took 577ms)
+
