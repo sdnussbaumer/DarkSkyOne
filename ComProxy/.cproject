@@ -49,6 +49,7 @@
 								<option id="org.eclipse.cdt.msvc.link.option.debug.626586198" name="Generate Debug Info (/debug)" superClass="org.eclipse.cdt.msvc.link.option.debug" value="true" valueType="boolean"/>
 								<option id="org.eclipse.cdt.msvc.link.option.libpath.1781930558" name="Additional Libpath (/libpath)" superClass="org.eclipse.cdt.msvc.link.option.libpath" valueType="stringList">
 									<listOptionValue builtIn="false" value="&quot;${VSCPP_LIB}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${VSCPP_WINLIB}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.msvc.link.inputType.200142350" superClass="org.eclipse.cdt.msvc.link.inputType"/>
 							</tool>
