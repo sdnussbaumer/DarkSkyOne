@@ -31,7 +31,7 @@ GPSTask::GPSTask() {
 	nmeaTestMode = false;
 	tinyGPS = new TinyGPSPlus();
 
-	Serial2.begin(4800);
+	Serial2.begin(9600);
 }
 
 GPSTask::~GPSTask() {
@@ -103,9 +103,6 @@ void GPSTask::handleGPS()
 				if (tinyGPS->encode((char)gpsChar)) {
 					LogUtils::instance()->logTrace(LogUtils::trace1, nmeaTerm);
 					nmeaTerm = "";
-
-					yield();
-					sleep(200);
 				}
 			}
 		}
