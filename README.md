@@ -1,4 +1,0 @@
-DarkSkyOne
-==========
-
-AJUG DarkSkyOne Project
