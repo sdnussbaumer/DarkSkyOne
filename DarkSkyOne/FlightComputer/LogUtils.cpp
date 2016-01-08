@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "Time.h"
 #include "rtc_clock.h"
 #include "QueueList.h"
-#include "SCoop.h"
 #include "SPI.h"
 #include "SD.h"
 
@@ -92,43 +91,39 @@ void LogUtils::processLogs()
 
 void LogUtils::logTrace(LogLevel level, const char* msg)
 {
-	SCoopATOMIC {
-		if (level <= loglevel)
-		{
-			String levelStr = "";
+	if (level <= loglevel)
+	{
+		String levelStr = "";
 
-			switch (level) {
-				case error : levelStr = "E"; break;
-				case warning : levelStr = "W"; break;
-				case information : levelStr = "I"; break;
-				case trace1 : levelStr = "1"; break;
-				case trace2 : levelStr = "2"; break;
-				case trace3 : levelStr = "3"; break;
-			}
-
-    		queue.push(levelStr + "\t" + msg);
+		switch (level) {
+			case error : levelStr = "E"; break;
+			case warning : levelStr = "W"; break;
+			case information : levelStr = "I"; break;
+			case trace1 : levelStr = "1"; break;
+			case trace2 : levelStr = "2"; break;
+			case trace3 : levelStr = "3"; break;
 		}
+
+    	queue.push(levelStr + "\t" + msg);
 	}
 }
 
 void LogUtils::logTrace(LogLevel level, const String msg)
 {
-	SCoopATOMIC {
-		if (level <= loglevel)
-		{
-			String levelStr = "";
+	if (level <= loglevel)
+	{
+		String levelStr = "";
 
-			switch (level) {
-				case error : levelStr = "E"; break;
-				case warning : levelStr = "W"; break;
-				case information : levelStr = "I"; break;
-				case trace1 : levelStr = "1"; break;
-				case trace2 : levelStr = "2"; break;
-				case trace3 : levelStr = "3"; break;
-			}
-
-    		queue.push(levelStr + "\t" + msg);
+		switch (level) {
+			case error : levelStr = "E"; break;
+			case warning : levelStr = "W"; break;
+			case information : levelStr = "I"; break;
+			case trace1 : levelStr = "1"; break;
+			case trace2 : levelStr = "2"; break;
+			case trace3 : levelStr = "3"; break;
 		}
+
+    	queue.push(levelStr + "\t" + msg);
 	}
 }
 

@@ -1,21 +1,19 @@
+#include <Scheduler.h>
 #include <Wire.h>
 #include <SPI.h>
 #include <SD.h>
 #include <TinyGPS++.h>
-#include <SCoop.h>
 #include <QueueList.h>
-#include <L3G4200D.h>
-#include <I2CSensor.h>
-#include <HMC5883.h>
-#include <GY80.h>
-#include <BMP085.h>
-#include <ADXL345.h>
 #include <rtc_clock.h>
 #include <ComUDP.h>
 #include <ComTCP.h>
 #include <ComStack.h>
 #include <ComNetwork.h>
 #include <ComDataLink.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_HMC5883_U.h>
+#include <Adafruit_BMP085.h>
+#include <Adafruit_ADXL345_U.h>
 
 #include "FlightUser.h";
 #include "GPSTask.h";
@@ -28,59 +26,6 @@ const int chipSelect = 4;
 
 static FlightUser *user_g;
 
-defineTask(LogTask)
-
-// LogTask Thread
-void LogTask::setup()
-{
-}
-
-void LogTask::loop()
-{
-	LogUtils::instance()->processLogs();
-
-	mySCoop.sleep(10);
-}
-
-defineTask(HeartBeatTask)
-
-// HeartBeat Thread
-void HeartBeatTask::setup()
-{
-	LogUtils::instance()->logTrace(LogUtils::trace3, "Enter HeartBeatTask::setup()");
-
-	pinMode(led, OUTPUT);
-
-	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit HeartBeatTask::setup()");
-}
-
-void HeartBeatTask::loop()
-{
-	LogUtils::instance()->logTrace(LogUtils::trace3, "Enter HeartBeatTask::loop()");
-
-	digitalWrite(led, HIGH);
-	mySCoop.sleep(500);
-	digitalWrite(led, LOW);
-	mySCoop.sleep(500);
-
-	LogUtils::instance()->logTrace(LogUtils::trace3, "Exit HeartBeatTask::loop()");
-}
-
-defineTask(MonitorTask)
-
-void MonitorTask::setup()
-{
-	user_g = new FlightUser(GY80Task::instance()->getGY80Task(), GPSTask::instance()->getGPS());
-	user_g->setup();
-}
-
-void MonitorTask::loop()
-{
-	user_g->loop();
-
-	mySCoop.sleep(10);
-}
-
 //The setup function is called once at startup of the sketch
 void setup()
 {
@@ -88,18 +33,14 @@ void setup()
 
 	// You have to edit the variants.cpp file in the Arduino core and comment the line "WDT_disable(WDT);"
 	// inside the init function. Else it's not possible to set WDT_Enable again.
-
     // #define __WDP_MS 2048
 	// WDT_Enable(WDT, 0x2000 | __WDP_MS | (__WDP_MS << 16));
 
 	// Initialize Log class
 	LogUtils::instance()->setLogLevel(LogUtils::information);
-
 	LogUtils::instance()->logTrace(LogUtils::information, "Booting DarkSky One ....");
 
-	// Add your initialization code here
-	mySCoop.start();
-
+	// Initialize SD card
 	LogUtils::instance()->logTrace(LogUtils::information, "Initializing SD card...");
 
 	// make sure that the default chip select pin is set to
@@ -114,18 +55,70 @@ void setup()
 	}
 	LogUtils::instance()->logTrace(LogUtils::information, "card initialized");
 
+	// Initialize Heart-Beat LED
+	pinMode(led, OUTPUT);
+
+	// Initialize FlightUser Monitor Task
+	user_g = new FlightUser(GY80Task::instance()->getGY80Task(), GPSTask::instance()->getGPS());
+	user_g->setup();
+
+	// Initialize Scheduler
+	Scheduler.startLoop(heartBeat);
+	Scheduler.startLoop(procLogs);
+	Scheduler.startLoop(procUser);
+	Scheduler.startLoop(readGPS);
+	Scheduler.startLoop(readGY80);
+
 	LogUtils::instance()->logTrace(LogUtils::information, "Booting DarkSky One done!");
+}
+
+// Heart-Beat Scheduler loop
+void heartBeat() {
+	digitalWrite(led, HIGH);
+	delay(300);
+	digitalWrite(led, LOW);
+	delay(300);
+}
+
+// Log processor Scheduler loop
+void procLogs() {
+	LogUtils::instance()->processLogs();
+
+	delay(30);
+	yield();
+}
+
+// FlightUser Monitor Scheduler loop
+void procUser() {
+	user_g->loop();
+
+	delay(30);
+	yield();
+}
+
+// GPS Scheduler loop
+void readGPS() {
+	GPSTask::instance()->handleGPS();
+
+	delay(20);
+	yield();
+
+}
+
+// GY80 Sensor Scheduler loop
+void readGY80() {
+	GY80Task::instance()->handleGY80();
+
+	delay(20);
+	yield();
 }
 
 // The loop function is called in an endless loop
 void loop()
 {
-	//Add your repeated code here
+	// delay and processing for other Scheduler tasks
 	yield();
-
-	GPSTask::instance()->handleGPS();
-
-	GY80Task::instance()->handleGY80();
+	delay(100);
 
 	// Reset Watchdog
 	// WDT_Restart(WDT);

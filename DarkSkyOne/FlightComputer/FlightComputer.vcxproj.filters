@@ -27,7 +27,7 @@
     <ClInclude Include="LogUtils.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Visual Micro\.FlightComputer.vsarduino.h">
+    <ClInclude Include="__vm\.FlightComputer.vsarduino.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -42,9 +42,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="LogUtils.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="c:\Users\san\AppData\Roaming\Arduino15\packages\arduino\hardware\sam\1.6.4\variants\arduino_due_x\variant.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

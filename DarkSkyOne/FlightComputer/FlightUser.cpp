@@ -41,10 +41,6 @@ void FlightUser::setup()
 
 void FlightUser::clearScreen()
 {
-	//Serial1.write(27);       // ESC command
-	//Serial1.print("[2J");    // clear screen command
-	//Serial1.write(27);
-	//Serial1.print("[H");     // cursor to home command
 	Serial1.println();
 	Serial1.println();
 }
@@ -207,7 +203,7 @@ void FlightUser::gpsInput()
 void FlightUser::mainDisplay()
 {
 	clearScreen();
-	Serial1.println("DarkSky Inflight Control v 0.1");
+	Serial1.println("DarkSky Inflight Control V0.5.1");
 	Serial1.println();
 	Serial1.println("Inflight info .............. 1");
 	Serial1.println("GPS ........................ 2");
@@ -287,7 +283,7 @@ void FlightUser::sensorInput()
       {
         while (Serial1.read()<= 0) {
           gy80_.printPressure();
-          sleep(200);
+          delay(200);
         }
       }
       break;
@@ -296,7 +292,7 @@ void FlightUser::sensorInput()
       {
         while (Serial1.read()<= 0) {
           gy80_.printAccelerator();
-          sleep(200);
+          delay(200);
         }
       }
       break;
@@ -305,7 +301,7 @@ void FlightUser::sensorInput()
       {
         while (Serial1.read()<= 0) {
           gy80_.printGyroscope();
-          sleep(200);
+          delay(200);
         }
       }
       break;
@@ -314,7 +310,7 @@ void FlightUser::sensorInput()
       {
         while (Serial1.read()<= 0) {
           gy80_.printCompass();
-          sleep(200);
+		  delay(200);
         }
       }
       break;

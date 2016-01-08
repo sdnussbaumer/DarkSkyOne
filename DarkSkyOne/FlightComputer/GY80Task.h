@@ -1,7 +1,10 @@
 /*
-GY80 - sensor task.
-Copyright (C) 2014 Stefan Mauerhofer
+GY80 Task class.
+Copyright (C) 2016 Sascha Nussbaumer
 All rights reserved.
+
+Parts of this class are implemented based on the examples of
+Adafruit Industries.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -21,15 +24,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #ifndef GY80TASK_h
 #define GY80TASK_h
 
-#include <GY80.h>
-
-
 class GY80Task
 {
 private:
-	GY80  gy80_;
-	unsigned long sensor_read_delay_;
+	//singleton variable
 	static GY80Task* _instance;
+
+	void setupBMP085();
+	void setupADXL345();
+	void setupHMC5883();
 
 public:
 
@@ -47,9 +50,7 @@ public:
 	void setup();
 	void handleGY80();
 
-	GY80& getGY80() {return gy80_;}
-
-	void printPressure();
+    void printPressure();
 	void printAccelerator();
 	void printGyroscope();
 	void printCompass();

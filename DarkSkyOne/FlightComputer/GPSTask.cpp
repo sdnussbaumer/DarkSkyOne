@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "GPSTask.h"
 #include "TinyGPS++.h"
 #include "LogUtils.h"
-#include "SCoop.h"
 
 // Initialize static variable of Singleton
 GPSTask* GPSTask::_instance = 0;
@@ -105,7 +104,7 @@ void GPSTask::handleGPS()
 					nmeaTerm = "";
 
 					yield();
-					sleep(200);
+					delay(200);
 				}
 			}
 		}
